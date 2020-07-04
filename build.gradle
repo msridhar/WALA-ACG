@@ -1,5 +1,5 @@
 plugins {
-    id 'java-library'
+    id 'application'
 }
 
 repositories {
@@ -11,4 +11,8 @@ dependencies {
     implementation "com.ibm.wala:com.ibm.wala.cast.js.rhino:1.5.5"
     implementation "com.ibm.wala:com.ibm.wala.cast.js:1.5.5"
     testImplementation 'junit:junit:4.13'
+}
+
+application {
+    mainClass = 'edu.riverside.wala.acg.FieldBasedJSCallGraphDriver'
 }
