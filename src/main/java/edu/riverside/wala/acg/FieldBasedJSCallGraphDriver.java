@@ -1,6 +1,7 @@
 package edu.riverside.wala.acg;
 
 import com.ibm.wala.cast.js.callgraph.fieldbased.flowgraph.vertices.ObjectVertex;
+import com.ibm.wala.cast.js.html.DefaultSourceExtractor;
 import com.ibm.wala.cast.js.ipa.callgraph.JSCallGraph;
 import com.ibm.wala.cast.js.translator.CAstRhinoTranslatorFactory;
 import com.ibm.wala.cast.js.util.CallGraph2JSON;
@@ -13,6 +14,7 @@ import com.ibm.wala.util.WalaException;
 import com.ibm.wala.util.collections.Pair;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,7 +22,7 @@ import java.nio.file.Paths;
 public class FieldBasedJSCallGraphDriver {
 
   /**
-   * Usage: FieldBasedJSCallGraphDriver path_to_js_file
+   * Usage: FieldBasedJSCallGraphDriver path_to_js_or_html_file
    *
    * @param args
    * @throws WalaException
@@ -28,15 +30,15 @@ public class FieldBasedJSCallGraphDriver {
    * @throws IOException
    * @throws IllegalArgumentException
    */
-  public static void main(String[] args)
-      throws IllegalArgumentException, IOException, CancelException, WalaException {
+  public static void main(String[] args) throws MalformedURLException, WalaException, CancelException {
     Path path = Paths.get(args[0]);
-    FieldBasedCGUtil f = new FieldBasedCGUtil(new CAstRhinoTranslatorFactory());
     URL url = path.toUri().toURL();
+    FieldBasedCGUtil f = new FieldBasedCGUtil(new CAstRhinoTranslatorFactory());
     Pair<JSCallGraph, PointerAnalysis<ObjectVertex>> results =
-        f.buildScriptCG(url, FieldBasedCGUtil.BuilderType.OPTIMISTIC_WORKLIST, null, false);
+            f.buildCG(url, FieldBasedCGUtil.BuilderType.OPTIMISTIC_WORKLIST, false, DefaultSourceExtractor::new);
     CallGraph CG = results.fst;
     System.out.println(CallGraphStats.getStats(CG));
     System.out.println(CallGraph2JSON.serialize(CG));
   }
+
 }
