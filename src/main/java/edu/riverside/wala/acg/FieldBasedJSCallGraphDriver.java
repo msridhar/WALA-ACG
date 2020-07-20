@@ -38,7 +38,8 @@ public class FieldBasedJSCallGraphDriver {
             f.buildCG(url, FieldBasedCGUtil.BuilderType.OPTIMISTIC_WORKLIST, false, DefaultSourceExtractor::new);
     CallGraph CG = results.fst;
     System.out.println(CallGraphStats.getStats(CG));
-    System.out.println(CallGraph2JSON.serialize(CG));
+    System.out.println((new CallGraph2JSON(false)).serialize(CG));
+    //System.out.println(CG);
   }
 
 }
