@@ -9,4 +9,4 @@ To run the builder, just do:
 ./gradlew run --args="path_to_js_or_html_file"
 ```
 
-E.g., `./gradlew run --args="foo.js"` should build a call graph for `foo.js`.  Right now the call graph stats are printed and the call graph is printed as JSON.
+E.g., `./gradlew run --args="foo.js"` should build a call graph for `foo.js`.  Right now the call graph stats are printed and the call graph and flow graph (the set of constraints constructed by the algorithm) are printed as JSON.
