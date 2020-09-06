@@ -1,5 +1,7 @@
 package edu.riverside.wala.acg;
 
+import com.ibm.wala.cast.js.callgraph.fieldbased.FieldBasedCallGraphBuilder;
+import com.ibm.wala.cast.js.callgraph.fieldbased.flowgraph.FlowGraph;
 import com.ibm.wala.cast.js.callgraph.fieldbased.flowgraph.vertices.ObjectVertex;
 import com.ibm.wala.cast.js.html.DefaultSourceExtractor;
 import com.ibm.wala.cast.js.ipa.callgraph.JSCallGraph;
@@ -34,11 +36,15 @@ public class FieldBasedJSCallGraphDriver {
     Path path = Paths.get(args[0]);
     URL url = path.toUri().toURL();
     FieldBasedCGUtil f = new FieldBasedCGUtil(new CAstRhinoTranslatorFactory());
-    Pair<JSCallGraph, PointerAnalysis<ObjectVertex>> results =
+    FieldBasedCallGraphBuilder.CallGraphResult results =
             f.buildCG(url, FieldBasedCGUtil.BuilderType.OPTIMISTIC_WORKLIST, false, DefaultSourceExtractor::new);
-    CallGraph CG = results.fst;
+    CallGraph CG = results.getCallGraph();
     System.out.println(CallGraphStats.getStats(CG));
+    System.out.println("CALL GRAPH:");
     System.out.println((new CallGraph2JSON(false)).serialize(CG));
+    FlowGraph flowGraph = results.getFlowGraph();
+    System.out.println("FLOW GRAPH:");
+    System.out.println(flowGraph.toJSON());
     //System.out.println(CG);
   }
 
