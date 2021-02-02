@@ -10,8 +10,8 @@ repositories {
 }
 
 dependencies {
-    implementation "com.ibm.wala:com.ibm.wala.cast.js.rhino:1.5.6-SNAPSHOT"
-    implementation "com.ibm.wala:com.ibm.wala.cast.js:1.5.6-SNAPSHOT"
+    implementation "com.ibm.wala:com.ibm.wala.cast.js.rhino:1.5.6"
+    implementation "com.ibm.wala:com.ibm.wala.cast.js:1.5.6"
     testImplementation 'junit:junit:4.13'
 }
 
