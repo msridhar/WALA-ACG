@@ -1,6 +1,9 @@
 plugins {
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
+
+mainClassName = 'edu.riverside.wala.acg.FieldBasedJSCallGraphDriver'
 
 repositories {
     mavenCentral()
@@ -16,5 +19,5 @@ dependencies {
 }
 
 application {
-    mainClass = 'edu.riverside.wala.acg.FieldBasedJSCallGraphDriver'
+    mainClass = mainClassName
 }
